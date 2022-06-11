@@ -14,7 +14,8 @@ class Student:
         self.root=root
         self.root.geometry("1350x750+0+0")
         self.root.title('Face recognition System')
-        img=Image.open(r"C:\Users\paivi\Desktop\College_project\Images\student.png")
+        #===variabls===
+        img=Image.open(r"C:\Users\paivi\Desktop\Face_Attendence_system\Images\student.png")
         img=img.resize((1350,750),Image.LANCZOS)  #LANCZOS is used for conversion of high level image to low level image
         self.photoimg=ImageTk.PhotoImage(img)
 
@@ -238,6 +239,8 @@ class Student:
         
         self.student_table.pack(fill=BOTH,expand=1)
       
+    #===============function declration============
+
 
 
 

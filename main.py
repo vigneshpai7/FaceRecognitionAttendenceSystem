@@ -3,6 +3,7 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import font
 from PIL import Image,ImageTk
+from student import Student
 
 
 
@@ -30,9 +31,9 @@ class Face_recognition_system:
         img2=img2.resize((180,180),Image.LANCZOS)  
         self.photoimg2=ImageTk.PhotoImage(img2)
 
-        b1 = Button(bgimage,image=self.photoimg2,borderwidth=0,cursor = " hand2 ")
+        b1 = Button(bgimage,image=self.photoimg2,command= self.student_details, borderwidth=0,cursor = " hand2 ")
         b1.place(x=150,y=180,width=180,height=180)
-        b1_1 =Button( bgimage ,text="Student Details", cursor = " hand2 ",font=("Cambria",15,"bold"),fg="#4d4dff")
+        b1_1 =Button( bgimage ,text="Student Details",command= self.student_details,  cursor = " hand2 ",font=("Cambria",15,"bold"),fg="#4d4dff")
         b1_1.place( x = 150 , y = 350 , width = 180 , height = 40 )
         #face recognition button
         img3=Image.open(r"C:\Users\paivi\Desktop\Face_Attendence_system\Images\face.png")
@@ -101,11 +102,16 @@ class Face_recognition_system:
         b8_8.place( x = 1050 , y = 550 , width = 180 , height = 40 )        
 
 
+#=================================function buttons================
+    def student_details(self):
+        self.new_window=Toplevel(self.root)
+        self.app=Student(self.new_window)
+
 
 if __name__ =="__main__":
-    root=Tk()
-    obj=Face_recognition_system(root)
-    root.mainloop()
+        root=Tk()
+        obj=Face_recognition_system(root)
+        root.mainloop()
 
 
         
