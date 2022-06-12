@@ -6,7 +6,8 @@ from tkinter import font
 from turtle import bgcolor
 from PIL import Image,ImageTk
 from numpy import column_stack
-
+from tkinter import messagebox
+import mysql.connector
 
 
 class Student:
@@ -15,6 +16,41 @@ class Student:
         self.root.geometry("1350x750+0+0")
         self.root.title('Face recognition System')
         #===variabls===
+        self.var_course=StringVar()
+        self.var_year=StringVar()
+        self.var_sem=StringVar()
+        self.var_id=StringVar()
+        self.var_name=StringVar()
+        self.var_div=StringVar()
+        self.var_rollno=StringVar()
+        self.var_dob=StringVar()
+        self.var_email=StringVar()
+        self.var_phone=StringVar()
+        self.var_address=StringVar()
+        self.var_Mentor=StringVar()
+        self.var_gender = StringVar()
+        
+
+        
+
+        
+        
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         img=Image.open(r"C:\Users\paivi\Desktop\Face_Attendence_system\Images\student.png")
         img=img.resize((1350,750),Image.LANCZOS)  #LANCZOS is used for conversion of high level image to low level image
         self.photoimg=ImageTk.PhotoImage(img)
@@ -37,15 +73,15 @@ class Student:
         #course
         dep_label = Label(current_course_frame, text="Course",font=("cambria",12,"bold"),bg="white")
         dep_label.grid(row=0,column=0)
-        dept_combo=ttk.Combobox(current_course_frame,font=("cambria",12,"bold"),width=17,state="read only")
-        dept_combo["values"]=("Select Department","BCA","BBA","BCOM","BA","B.Ed")
+        dept_combo=ttk.Combobox(current_course_frame,font=("cambria",12,"bold"),textvariable=self.var_course, width=17,state="read only")
+        dept_combo["values"]=("Select course","BCA","BBA","BCOM","BA","B.Ed")
         dept_combo.current(0)
         dept_combo.grid(row=0,column=1,padx=2,pady=2,sticky=W)
         
         #Year
         year_label = Label(current_course_frame, text="Year",font=("cambria",12,"bold"),bg="white")
         year_label.grid(row=1,column=0,padx=10,pady=10)
-        year_combo=ttk.Combobox(current_course_frame,font=("cambria",12,"bold"),width=17,state="read only")
+        year_combo=ttk.Combobox(current_course_frame,font=("cambria",12,"bold"),width=17,state="read only",textvariable=self.var_year)
         year_combo["values"]=("Select Year","2021-2022","2022-2023","2024-2025","2025-2026","2026-2027")
         year_combo.current(0)
         year_combo.grid(row=1,column=1,padx=2,pady=2,sticky=W)
@@ -53,7 +89,7 @@ class Student:
         #Semester
         sem_label = Label(current_course_frame, text="Semester",font=("cambria",12,"bold"),bg="white")
         sem_label.grid(row=2,column=0,padx=10,pady=10)
-        sem_combo=ttk.Combobox(current_course_frame,font=("cambria",12,"bold"),width=17,state="read only")
+        sem_combo=ttk.Combobox(current_course_frame,font=("cambria",12,"bold"),textvariable=self.var_sem,width=17,state="read only")
         sem_combo["values"]=("Select Semester","2021-2022","2022-2023","2024-2025","2025-2026","2026-2027")
         sem_combo.current(0)
         sem_combo.grid(row=2,column=1,padx=2,pady=2,sticky=W)
@@ -62,38 +98,38 @@ class Student:
         class_student_frame=LabelFrame(Left_frame,bd=2,relief=RIDGE,text="Class Student Information",font=("cambria",12,"bold"),bg="white")
         class_student_frame.place(x=10,y=160,width=570,height=350)
         #student id
-        student_id_label = Label(class_student_frame, text="Semester",font=("cambria",12,"bold"),bg="white")
+        student_id_label = Label(class_student_frame, text="Semester",font=("cambria",12,"bold"),bg="white",)
         student_id_label.grid(row=0,column=0,padx=3,pady=3,sticky=W)
         
-        studentID_entry=ttk.Entry(class_student_frame,width=15,font=("cambria",12,"bold"))
+        studentID_entry=ttk.Entry(class_student_frame,width=15,font=("cambria",12,"bold"),textvariable=self.var_id)
         studentID_entry.grid(row=0,column=1,padx=3,pady=3,sticky=W)
         
         #Student name
         student_name_label = Label(class_student_frame, text="Student Name:",font=("cambria",12,"bold"),bg="white")
         student_name_label.grid(row=0,column=2,padx=3,pady=3,sticky=W)
         
-        student_name_entry=ttk.Entry(class_student_frame,width=15,font=("cambria",12,"bold"),)
+        student_name_entry=ttk.Entry(class_student_frame,width=15,font=("cambria",12,"bold"),textvariable=self.var_name)
         student_name_entry.grid(row=0,column=3,padx=3,pady=3,sticky=W)
 
         #class division
         div_label = Label(class_student_frame, text="Division:",font=("cambria",12,"bold"),bg="white")
         div_label.grid(row=1,column=0,padx=3,pady=3,sticky=W)
         
-        div_entry=ttk.Entry(class_student_frame,width=15,font=("cambria",12,"bold"),)
+        div_entry=ttk.Entry(class_student_frame,width=15,font=("cambria",12,"bold"),textvariable=self.var_div)
         div_entry.grid(row=1,column=1,padx=3,pady=3,sticky=W)
 
         #Roll Number
         rollno_label = Label(class_student_frame, text="Roll No:",font=("cambria",12,"bold"),bg="white")
         rollno_label.grid(row=1,column=2,padx=3,pady=3,sticky=W)
         
-        rollno_entry=ttk.Entry(class_student_frame,width=15,font=("cambria",12,"bold"),)
+        rollno_entry=ttk.Entry(class_student_frame,width=15,font=("cambria",12,"bold"),textvariable=self.var_rollno)
         rollno_entry.grid(row=1,column=3,padx=3,pady=3,sticky=W)
 
         #gender
         gender_label = Label(class_student_frame, text="Gender:",font=("cambria",12,"bold"),bg="white")
         gender_label.grid(row=2,column=0,padx=3,pady=3,sticky=W)
         
-        gender_combo=ttk.Combobox(class_student_frame,font=("cambria",12,"bold"),width=13,state="read only")
+        gender_combo=ttk.Combobox(class_student_frame,font=("cambria",12,"bold"),width=13,state="read only",textvariable=self.var_gender)
         gender_combo["values"]=("Select Gender","Male","Female","Not prefer to say")
         gender_combo.current(0)
         gender_combo.grid(row=2,column=1,padx=2,pady=2,sticky=W)
@@ -102,14 +138,14 @@ class Student:
         email_label = Label(class_student_frame, text="Email:",font=("cambria",12,"bold"),bg="white")
         email_label.grid(row=2,column=2,padx=3,pady=3,sticky=W)
         
-        email_entry=ttk.Entry(class_student_frame,width=15,font=("cambria",12,"bold"),)
+        email_entry=ttk.Entry(class_student_frame,width=15,font=("cambria",12,"bold"),textvariable=self.var_email)
         email_entry.grid(row=2,column=3,padx=3,pady=3,sticky=W)
 
         #Address  
         address_label = Label(class_student_frame, text="Address:",font=("cambria",12,"bold"),bg="white")
         address_label.grid(row=3,column=0,padx=3,pady=3,sticky=W)
         
-        address_entry=ttk.Entry(class_student_frame,width=15,font=("cambria",12,"bold"),)
+        address_entry=ttk.Entry(class_student_frame,width=15,font=("cambria",12,"bold"),textvariable=self.var_address)
         address_entry.grid(row=3,column=1,padx=3,pady=3,sticky=W)
 
 
@@ -117,35 +153,36 @@ class Student:
         phone_label = Label(class_student_frame, text="Phone No:",font=("cambria",12,"bold"),bg="white")
         phone_label.grid(row=3,column=2,padx=3,pady=3,sticky=W)
         
-        phone_entry=ttk.Entry(class_student_frame,width=15,font=("cambria",12,"bold"),)
+        phone_entry=ttk.Entry(class_student_frame,width=15,font=("cambria",12,"bold"),textvariable=self.var_phone)
         phone_entry.grid(row=3,column=3,padx=3,pady=3,sticky=W)
 
         #dob
         dob_label = Label(class_student_frame, text="Date OF Birth:",font=("cambria",12,"bold"),bg="white")
         dob_label.grid(row=4,column=0,padx=3,pady=3,sticky=W)
         
-        dob_entry=ttk.Entry(class_student_frame,width=15,font=("cambria",12,"bold"),)
+        dob_entry=ttk.Entry(class_student_frame,width=15,font=("cambria",12,"bold"),textvariable=self.var_dob)
         dob_entry.grid(row=4,column=1,padx=3,pady=3,sticky=W)
 
         #mentor
         Mentor_label = Label(class_student_frame, text="Mentor of Class:",font=("cambria",12,"bold"),bg="white")
         Mentor_label.grid(row=4,column=2,padx=3,pady=3,sticky=W)
         
-        Mentor_entry=ttk.Entry(class_student_frame,width=15,font=("cambria",12,"bold"),)
+        Mentor_entry=ttk.Entry(class_student_frame,width=15,font=("cambria",12,"bold"),textvariable=self.var_Mentor)
         Mentor_entry.grid(row=4,column=3,padx=3,pady=3,sticky=W)
 
         #radio Buttons
-        radiobtn1 = ttk.Radiobutton(class_student_frame,text="Take Photo Sample",value="Yes")
+        self.var_radio1=StringVar()
+        radiobtn1 = ttk.Radiobutton(class_student_frame,text="Take Photo Sample",textvariable=self.var_radio1,value="Yes",)
         radiobtn1.grid(row=5,column=0)
-
-        radiobtn2 = ttk.Radiobutton(class_student_frame,text="No Photo Sample",value="NO")
+        self.var_radio2=StringVar()
+        radiobtn2 = ttk.Radiobutton(class_student_frame,text="No Photo Sample",value="NO",textvariable=self.var_radio2,)
         radiobtn2.grid(row=5,column=1)
 
         #button frame
         btn_frame=Frame(class_student_frame,bd=2,relief=FLAT,bg="white")
         btn_frame.place(x=1,y=180,width=549,height=40)
         #save button
-        save_btn=Button(btn_frame,text="Save",width=10,font =( " Cambria" , 13 , " bold " ) , bg ="#2E8BC0" , fg ="white")
+        save_btn=Button(btn_frame,text="Save",width=10,font =( " Cambria" , 13 , " bold " ) , bg ="#2E8BC0" , fg ="white",command=self.adddata)
         save_btn.grid(row=0,column=0,padx=4,pady=3)
 
         update_btn=Button(btn_frame,text="Update",width=10,font =( " Cambria " , 13 , " bold " ) , bg ="#90ee90" , fg ="white")
@@ -240,6 +277,25 @@ class Student:
         self.student_table.pack(fill=BOTH,expand=1)
       
     #===============function declration============
+    def adddata(self):
+        if self.var_course.get()=="Select course" or self.var_name.get()==""or self.var_id=="":
+            messagebox.showerror("Error","Enter the all the Fields",parent=self.root)
+        else:
+            messagebox.showinfo("success","Welcome Back")    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
