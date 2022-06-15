@@ -31,25 +31,6 @@ class Student:
         self.var_gender = StringVar()
         
 
-        
-
-        
-        
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         img=Image.open(r"C:\Users\paivi\Desktop\Face_Attendence_system\Images\student.png")
         img=img.resize((1350,750),Image.LANCZOS)  #LANCZOS is used for conversion of high level image to low level image
@@ -70,7 +51,7 @@ class Student:
         current_course_frame=LabelFrame(Left_frame,bd=2,relief=RIDGE,text="Course Info",font=("cambria",12,"bold"),bg="white")
         current_course_frame.place(x=10,y=0,width=570,height=150)
 
-        #course
+        #course-1
         dep_label = Label(current_course_frame, text="Course",font=("cambria",12,"bold"),bg="white")
         dep_label.grid(row=0,column=0)
         dept_combo=ttk.Combobox(current_course_frame,font=("cambria",12,"bold"),textvariable=self.var_course, width=17,state="read only")
@@ -78,27 +59,27 @@ class Student:
         dept_combo.current(0)
         dept_combo.grid(row=0,column=1,padx=2,pady=2,sticky=W)
         
-        #Year
+        #Year-2
         year_label = Label(current_course_frame, text="Year",font=("cambria",12,"bold"),bg="white")
         year_label.grid(row=1,column=0,padx=10,pady=10)
         year_combo=ttk.Combobox(current_course_frame,font=("cambria",12,"bold"),width=17,state="read only",textvariable=self.var_year)
-        year_combo["values"]=("Select Year","2021-2022","2022-2023","2024-2025","2025-2026","2026-2027")
+        year_combo["values"]=("Select Year","2020-2021","2021-2022","2022-2023","2024-2025","2025-2026","2026-2027")
         year_combo.current(0)
         year_combo.grid(row=1,column=1,padx=2,pady=2,sticky=W)
 
-        #Semester
+        #Semester-3
         sem_label = Label(current_course_frame, text="Semester",font=("cambria",12,"bold"),bg="white")
         sem_label.grid(row=2,column=0,padx=10,pady=10)
         sem_combo=ttk.Combobox(current_course_frame,font=("cambria",12,"bold"),textvariable=self.var_sem,width=17,state="read only")
-        sem_combo["values"]=("Select Semester","2021-2022","2022-2023","2024-2025","2025-2026","2026-2027")
+        sem_combo["values"]=("Select Semester","1","2","3","4","5","6")    
         sem_combo.current(0)
         sem_combo.grid(row=2,column=1,padx=2,pady=2,sticky=W)
         
-        #class student Info 
+        #class student Info-4 
         class_student_frame=LabelFrame(Left_frame,bd=2,relief=RIDGE,text="Class Student Information",font=("cambria",12,"bold"),bg="white")
         class_student_frame.place(x=10,y=160,width=570,height=350)
         #student id
-        student_id_label = Label(class_student_frame, text="Semester",font=("cambria",12,"bold"),bg="white",)
+        student_id_label = Label(class_student_frame, text="Student Id",font=("cambria",12,"bold"),bg="white",)
         student_id_label.grid(row=0,column=0,padx=3,pady=3,sticky=W)
         
         studentID_entry=ttk.Entry(class_student_frame,width=15,font=("cambria",12,"bold"),textvariable=self.var_id)
@@ -115,7 +96,9 @@ class Student:
         div_label = Label(class_student_frame, text="Division:",font=("cambria",12,"bold"),bg="white")
         div_label.grid(row=1,column=0,padx=3,pady=3,sticky=W)
         
-        div_entry=ttk.Entry(class_student_frame,width=15,font=("cambria",12,"bold"),textvariable=self.var_div)
+        div_entry=ttk.Combobox(class_student_frame,font=("cambria",12,"bold"),width=13,state="read only",textvariable=self.var_div)
+        div_entry["values"]=("Select Division","A","B","C")
+        div_entry.current(0)
         div_entry.grid(row=1,column=1,padx=3,pady=3,sticky=W)
 
         #Roll Number
@@ -172,10 +155,10 @@ class Student:
 
         #radio Buttons
         self.var_radio1=StringVar()
-        radiobtn1 = ttk.Radiobutton(class_student_frame,text="Take Photo Sample",textvariable=self.var_radio1,value="Yes",)
+        radiobtn1 = ttk.Radiobutton(class_student_frame,text="Take Photo Sample",variable=self.var_radio1,value="Yes",)
         radiobtn1.grid(row=5,column=0)
         self.var_radio2=StringVar()
-        radiobtn2 = ttk.Radiobutton(class_student_frame,text="No Photo Sample",value="NO",textvariable=self.var_radio2,)
+        radiobtn2 = ttk.Radiobutton(class_student_frame,text="No Photo Sample",value="NO",variable=self.var_radio1,)
         radiobtn2.grid(row=5,column=1)
 
         #button frame
@@ -275,28 +258,80 @@ class Student:
         self.student_table.column("photo",width=100)
         
         self.student_table.pack(fill=BOTH,expand=1)
+        self.student_table.bind("<ButtonRelease-1>",self.get_cursor)
+        self.fetchdata()
       
     #===============function declration============
     def adddata(self):
         if self.var_course.get()=="Select course" or self.var_name.get()==""or self.var_id=="":
             messagebox.showerror("Error","Enter the all the Fields",parent=self.root)
         else:
-            messagebox.showinfo("success","Welcome Back")    
+            try:
+                conn= mysql.connector.connect(host="localhost",username="root",password="root",database="facerecogniser")
+                my_cusrsor=conn.cursor()
+                my_cusrsor.execute("insert into student values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(
+                    self.var_course.get(),
+                    self.var_year.get(),
+                    self.var_sem.get(),
+                    self.var_id.get(),
+                    self.var_name.get(),
+                    self.var_div.get(),
+                    self.var_rollno.get(),
+                    self.var_dob.get(),
+                    self.var_email.get(),
+                    self.var_phone.get(),       
+                    self.var_address.get(),
+                    self.var_Mentor.get(),
+                   # self.var_photo.get(),
+                    self.var_gender.get(),
+                    self.var_radio1.get()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                                                                                                                            
+            ))
+                conn.commit()
+                self.fetchdata()
+                conn.close()
+                messagebox.showinfo("Success","Data Inserted Successfully",parent=self.root)    
+            except Exception as e:
+                messagebox.showerror("Error","Data Not Inserted",parent=self.root)      
+#=============================fetch data to tabel+=============================
+    def fetchdata(self):
+        try:
+            conn= mysql.connector.connect(host="localhost",username="root",password="root",database="facerecogniser")
+            my_cusrsor=conn.cursor()
+            my_cusrsor.execute("select * from student")
+            data=my_cusrsor.fetchall()
+            
+            if len(data)!=0:
+                self.student_table.delete(*self.student_table.get_children())
+                for i in data:
+                    self.student_table.insert("",END,values=i)
+                conn.commit()
+                conn.close()
+        except Exception as e:
+            messagebox.showerror("Error","Data Not Inserted",parent=self.root) 
+     #get cursor over the text box================
+    def get_cursor(self,event=""):
+        cursor=self.student_table.focus()
+        contents=self.student_table.item(cursor)
+        data=contents['values']
+        self.var_course.set(data[0])
+        self.var_year.set(data[1])
+        self.var_sem.set(data[2])
+        self.var_id.set(data[3])
+        self.var_name.set(data[4])
+        self.var_div.set(data[5])
+        self.var_rollno.set(data[6])
+        self.var_gender.set(data[7])
+        self.var_email.set(data[8])
+        self.var_address.set(data[9])
+        self.var_phone.set(data[10])
+        self.var_dob.set(data[11])
+        self.var_Mentor.set(data[12])
+        self.var_radio1.set(data[13])
+        #self.var_photo.set(data[12])
+     
+    #=============================update data=============================
 
 
 
