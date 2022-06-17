@@ -1,5 +1,6 @@
 from cProfile import label
 from msilib.schema import Verb
+from numbers import Integral
 from tkinter import *
 from tkinter import ttk
 from tkinter import font
@@ -124,7 +125,7 @@ class Student:
         email_entry=ttk.Entry(class_student_frame,width=15,font=("cambria",12,"bold"),textvariable=self.var_email)
         email_entry.grid(row=2,column=3,padx=3,pady=3,sticky=W)
 
-        #Address  
+        #Dob  
         address_label = Label(class_student_frame, text="Address:",font=("cambria",12,"bold"),bg="white")
         address_label.grid(row=3,column=0,padx=3,pady=3,sticky=W)
         
@@ -168,13 +169,13 @@ class Student:
         save_btn=Button(btn_frame,text="Save",width=10,font =( " Cambria" , 13 , " bold " ) , bg ="#2E8BC0" , fg ="white",command=self.adddata)
         save_btn.grid(row=0,column=0,padx=4,pady=3)
 
-        update_btn=Button(btn_frame,text="Update",width=10,font =( " Cambria " , 13 , " bold " ) , bg ="#90ee90" , fg ="white")
+        update_btn=Button(btn_frame,text="Update",width=10,font =( " Cambria " , 13 , " bold " ) , bg ="#90ee90" , fg ="white",command=self.updatedata)
         update_btn.grid(row=0,column=1,padx=4,pady=3)
 
-        delete_btn=Button(btn_frame,text="Delete",width=10,font =( " cambria" , 13 , " bold " ) , bg ="#DC143C" , fg ="white")
+        delete_btn=Button(btn_frame,text="Delete",width=10,font =( " cambria" , 13 , " bold " ) , bg ="#DC143C" , fg ="white",command=self.deletedata)
         delete_btn.grid(row=0,column=2,padx=4,pady=3)
 
-        reset_btn=Button(btn_frame,text="Reset",width=10,font =( " cambria " , 13 , " bold " ) , bg ="white" , fg ="Black")
+        reset_btn=Button(btn_frame,text="Reset",width=10,font =( " cambria " , 13 , " bold " ) , bg ="white" , fg ="Black" ,command=self.cleardata)
         reset_btn.grid(row=0,column=3,padx=4,pady=3)
 
        
@@ -220,26 +221,27 @@ class Student:
         scroll_x=ttk.Scrollbar(table_frame,orient=HORIZONTAL)
         scroll_y=ttk.Scrollbar(table_frame,orient=VERTICAL)
 
-        self.student_table=ttk.Treeview(table_frame,column=('course','year','sem','id','name','div','rollno','gender','dob','email','phone','address','Mentor','photo'),xscrollcommand=scroll_x.set,yscrollcommand=scroll_y.set)
+        self.student_table=ttk.Treeview(table_frame,column=('course','year','sem','id','name','div','rollno','gender','email','address','phone','dob','Mentor','photo'),xscrollcommand=scroll_x.set,yscrollcommand=scroll_y.set)
         scroll_x.pack(side=BOTTOM,fill=X)
         scroll_y.pack(side=RIGHT,fill=Y)
         scroll_x.config(command=self.student_table.xview)
         scroll_y.config(command=self.student_table.yview)
 
-        self.student_table.heading("course",text="COURSE")
-        self.student_table.heading("year",text="YEAR")
-        self.student_table.heading("sem",text="SEMESTER")
-        self.student_table.heading("id",text="STUDENT ID")
-        self.student_table.heading("name",text="NAME")
-        self.student_table.heading("div",text="DIVISION")
-        self.student_table.heading("rollno",text="ROLL NO")
-        self.student_table.heading("gender",text="GENDER")
-        self.student_table.heading("dob",text="DOB")
-        self.student_table.heading("email",text="EMAIL")
-        self.student_table.heading("phone",text="PHONE")
-        self.student_table.heading("address",text="ADDRESS")
-        self.student_table.heading("Mentor",text="MENTOR")
-        self.student_table.heading("photo",text="PHOTO")
+        self.student_table.heading("course",text="Course")
+        self.student_table.heading("year",text="Year")
+        self.student_table.heading("sem",text="Semester")
+        self.student_table.heading("id",text="Sudent ID")
+        self.student_table.heading("name",text="Name")
+        self.student_table.heading("div",text="Division")   
+        self.student_table.heading("rollno",text="Roll No")
+        self.student_table.heading("gender",text="Gender")
+        self.student_table.heading("email",text="Email")
+        self.student_table.heading("address",text="Address")
+        self.student_table.heading("phone",text="Phone Number")
+        self.student_table.heading("dob",text="Dob")
+        self.student_table.heading("Mentor",text="Mentor Of Class")
+        self.student_table.heading("photo",text="Photo")
+
         self.student_table["show"]="headings"
   #width detting
         self.student_table.column("course",width=100)
@@ -250,15 +252,15 @@ class Student:
         self.student_table.column("div",width=100)
         self.student_table.column("rollno",width=100)
         self.student_table.column("gender",width=100)
-        self.student_table.column("dob",width=100)
         self.student_table.column("email",width=100)
+        self.student_table.column("dob",width=100)
         self.student_table.column("phone",width=100)
         self.student_table.column("address",width=100)
         self.student_table.column("Mentor",width=100)
         self.student_table.column("photo",width=100)
         
         self.student_table.pack(fill=BOTH,expand=1)
-        self.student_table.bind("<ButtonRelease-1>",self.get_cursor)
+        self.student_table.bind("<ButtonRelease>",self.get_cursor)
         self.fetchdata()
       
     #===============function declration============
@@ -277,13 +279,12 @@ class Student:
                     self.var_name.get(),
                     self.var_div.get(),
                     self.var_rollno.get(),
-                    self.var_dob.get(),
-                    self.var_email.get(),
-                    self.var_phone.get(),       
-                    self.var_address.get(),
-                    self.var_Mentor.get(),
-                   # self.var_photo.get(),
                     self.var_gender.get(),
+                    self.var_email.get(),
+                    self.var_address.get(),
+                    self.var_phone.get(),
+                    self.var_dob.get(),
+                    self.var_Mentor.get(),
                     self.var_radio1.get()
 
                                                                                                                             
@@ -310,28 +311,105 @@ class Student:
                 conn.close()
         except Exception as e:
             messagebox.showerror("Error","Data Not Inserted",parent=self.root) 
-     #get cursor over the text box================
+        #get cursor
     def get_cursor(self,event=""):
-        cursor=self.student_table.focus()
-        contents=self.student_table.item(cursor)
-        data=contents['values']
-        self.var_course.set(data[0])
-        self.var_year.set(data[1])
-        self.var_sem.set(data[2])
-        self.var_id.set(data[3])
-        self.var_name.set(data[4])
-        self.var_div.set(data[5])
-        self.var_rollno.set(data[6])
-        self.var_gender.set(data[7])
-        self.var_email.set(data[8])
-        self.var_address.set(data[9])
-        self.var_phone.set(data[10])
-        self.var_dob.set(data[11])
-        self.var_Mentor.set(data[12])
-        self.var_radio1.set(data[13])
-        #self.var_photo.set(data[12])
-     
-    #=============================update data=============================
+        cursor_row=self.student_table.focus()
+        contents=self.student_table.item(cursor_row)
+        row=contents['values']
+        self.var_course.set(row[0])
+        self.var_year.set(row[1])
+        self.var_sem.set(row[2])
+        self.var_id.set(row[3])
+        self.var_name.set(row[4])
+        self.var_div.set(row[5])
+        self.var_rollno.set(row[6])
+        self.var_gender.set(row[7])
+        self.var_email.set(row[8])
+        self.var_address.set(row[9])
+        self.var_phone.set(row[10])
+        self.var_dob.set(row[11])
+        self.var_Mentor.set(row[12])
+        self.var_radio1.set(row[13])
+                
+#=============================update data=============================
+    def updatedata(self):
+        if self.var_course.get()=="Select course" or self.var_name.get()==""or self.var_id=="":
+            messagebox.showerror("Error","Enter the all the Fields",parent=self.root)
+        else:
+            try:
+                conn= mysql.connector.connect(host="localhost",username="root",password="root",database="facerecogniser")
+                my_cusrsor=conn.cursor()
+                my_cusrsor.execute("update student set Course=%s,Year=%s,Sem=%s,Name=%s,Div=%s,Rollno=%s,Gender%s,Email=%s,Address=%s,Phone=%s,Dob=%s,Mentor=%s where Sid=%s",
+                (
+                self.var_course.get(),
+                self.var_year.get(),
+                self.var_sem.get(),
+                self.var_name.get(),
+                self.var_div.get(),
+                self.var_rollno.get(),
+                self.var_gender.get(),
+                self.var_email.get(),
+                self.var_address.get(),
+                self.var_phone.get(),
+                self.var_dob.get(),
+                self.var_Mentor.get(),
+                self.var_id.get()
+
+                ))
+                conn.commit()
+                self.fetchdata()
+                conn.close()
+                messagebox.showinfo("Success","Data Updated Successfully",parent=self.root)
+            except Exception as e:
+                messagebox.showerror("Error",f'Error: {e}',parent=self.root)             
+
+    #=============================delete data=============================
+    def deletedata(self):
+        if self.var_course.get()=="Select course" or self.var_name.get()==""or self.var_id=="":
+            messagebox.showerror("Error","Enter the all the Fields",parent=self.root)
+        else:
+            try:
+                delete=messagebox.askyesno("Delete","Do you want to delete the data",parent=self.root)
+                if delete>0:
+                    conn= mysql.connector.connect(host="localhost",username="root",password="root",database="facerecogniser")
+                    my_cusrsor=conn.cursor()
+                    my_cusrsor.execute("delete from student where Sid=%s",(self.var_id.get(),))
+                    messagebox.showinfo("Success","Data Deleted Successfully",parent=self.root)
+                    conn.commit()
+                    self.fetchdata()
+                    conn.close()
+                else:
+                    if not delete:
+                        return
+            except Exception as es:
+                messagebox.showerror("Error",f'{es}',parent=self.root)
+    #=============================clear data=============================
+    def cleardata(self):
+        self.var_course.set("Select course")
+        self.var_year.set("Select year")
+        self.var_sem.set("Select semester")
+        self.var_id.set("")
+        self.var_name.set("")
+        self.var_div.set("Select division")
+        self.var_rollno.set("")
+        self.var_gender.set("")
+        self.var_email.set("")
+        self.var_address.set("")
+        self.var_phone.set("")
+        self.var_dob.set("")
+        self.var_Mentor.set("")
+        self.var_radio1.set("")
+#=============================search data=============================
+            
+
+
+
+
+
+
+                    
+
+                
 
 
 
