@@ -4,7 +4,7 @@ from numbers import Integral
 from tkinter import *
 from tkinter import ttk
 from tkinter import font
-from turtle import bgcolor
+from turtle import bgcolor 
 from PIL import Image,ImageTk
 from numpy import column_stack
 from tkinter import messagebox
@@ -22,7 +22,7 @@ class Student:
         self.var_sem=StringVar()
         self.var_id=StringVar()
         self.var_name=StringVar()
-        self.var_div=StringVar()
+        # self.var_div=StringVar()
         self.var_rollno=StringVar()
         self.var_dob=StringVar()
         self.var_email=StringVar()
@@ -80,7 +80,7 @@ class Student:
         class_student_frame=LabelFrame(Left_frame,bd=2,relief=RIDGE,text="Class Student Information",font=("cambria",12,"bold"),bg="white")
         class_student_frame.place(x=10,y=160,width=570,height=350)
         #student id
-        student_id_label = Label(class_student_frame, text="Student Id",font=("cambria",12,"bold"),bg="white",)
+        student_id_label = Label(class_student_frame, text="University Id",font=("cambria",12,"bold"),bg="white",)
         student_id_label.grid(row=0,column=0,padx=3,pady=3,sticky=W)
         
         studentID_entry=ttk.Entry(class_student_frame,width=15,font=("cambria",12,"bold"),textvariable=self.var_id)
@@ -93,21 +93,21 @@ class Student:
         student_name_entry=ttk.Entry(class_student_frame,width=15,font=("cambria",12,"bold"),textvariable=self.var_name)
         student_name_entry.grid(row=0,column=3,padx=3,pady=3,sticky=W)
 
-        #class division
-        div_label = Label(class_student_frame, text="Division:",font=("cambria",12,"bold"),bg="white")
-        div_label.grid(row=1,column=0,padx=3,pady=3,sticky=W)
+        # #class division
+        # div_label = Label(class_student_frame, text="Division:",font=("cambria",12,"bold"),bg="white")
+        # div_label.grid(row=1,column=0,padx=3,pady=3,sticky=W)
         
-        div_entry=ttk.Combobox(class_student_frame,font=("cambria",12,"bold"),width=13,state="read only",textvariable=self.var_div)
-        div_entry["values"]=("Select Division","A","B","C")
-        div_entry.current(0)
-        div_entry.grid(row=1,column=1,padx=3,pady=3,sticky=W)
+        # div_entry=ttk.Combobox(class_student_frame,font=("cambria",12,"bold"),width=13,state="read only",textvariable=self.var_div)
+        # div_entry["values"]=("A","B","C")
+        # div_entry.current(0)
+        # div_entry.grid(row=1,column=1,padx=3,pady=3,sticky=W)
 
         #Roll Number
         rollno_label = Label(class_student_frame, text="Roll No:",font=("cambria",12,"bold"),bg="white")
-        rollno_label.grid(row=1,column=2,padx=3,pady=3,sticky=W)
+        rollno_label.grid(row=1,column=0,padx=3,pady=3,sticky=W)
         
         rollno_entry=ttk.Entry(class_student_frame,width=15,font=("cambria",12,"bold"),textvariable=self.var_rollno)
-        rollno_entry.grid(row=1,column=3,padx=3,pady=3,sticky=W)
+        rollno_entry.grid(row=1,column=1,padx=3,pady=3,sticky=W)
 
         #gender
         gender_label = Label(class_student_frame, text="Gender:",font=("cambria",12,"bold"),bg="white")
@@ -120,10 +120,10 @@ class Student:
         
         #email
         email_label = Label(class_student_frame, text="Email:",font=("cambria",12,"bold"),bg="white")
-        email_label.grid(row=2,column=2,padx=3,pady=3,sticky=W)
+        email_label.grid(row=1,column=2,padx=3,pady=3,sticky=W)
         
         email_entry=ttk.Entry(class_student_frame,width=15,font=("cambria",12,"bold"),textvariable=self.var_email)
-        email_entry.grid(row=2,column=3,padx=3,pady=3,sticky=W)
+        email_entry.grid(row=1,column=3,padx=3,pady=3,sticky=W)
 
         #Dob  
         address_label = Label(class_student_frame, text="Address:",font=("cambria",12,"bold"),bg="white")
@@ -135,10 +135,10 @@ class Student:
 
         # phone number
         phone_label = Label(class_student_frame, text="Phone No:",font=("cambria",12,"bold"),bg="white")
-        phone_label.grid(row=3,column=2,padx=3,pady=3,sticky=W)
+        phone_label.grid(row=2,column=2,padx=3,pady=3,sticky=W)
         
         phone_entry=ttk.Entry(class_student_frame,width=15,font=("cambria",12,"bold"),textvariable=self.var_phone)
-        phone_entry.grid(row=3,column=3,padx=3,pady=3,sticky=W)
+        phone_entry.grid(row=2,column=3,padx=3,pady=3,sticky=W)
 
         #dob
         dob_label = Label(class_student_frame, text="Date OF Birth:",font=("cambria",12,"bold"),bg="white")
@@ -149,10 +149,10 @@ class Student:
 
         #mentor
         Mentor_label = Label(class_student_frame, text="Mentor of Class:",font=("cambria",12,"bold"),bg="white")
-        Mentor_label.grid(row=4,column=2,padx=3,pady=3,sticky=W)
+        Mentor_label.grid(row=3,column=2,padx=3,pady=3,sticky=W)
         
         Mentor_entry=ttk.Entry(class_student_frame,width=15,font=("cambria",12,"bold"),textvariable=self.var_Mentor)
-        Mentor_entry.grid(row=4,column=3,padx=3,pady=3,sticky=W)
+        Mentor_entry.grid(row=3,column=3,padx=3,pady=3,sticky=W)
 
         #radio Buttons
         self.var_radio1=StringVar()
@@ -169,7 +169,7 @@ class Student:
         save_btn=Button(btn_frame,text="Save",width=10,font =( " Cambria" , 13 , " bold " ) , bg ="#2E8BC0" , fg ="white",command=self.adddata)
         save_btn.grid(row=0,column=0,padx=4,pady=3)
 
-        update_btn=Button(btn_frame,text="Update",width=10,font =( " Cambria " , 13 , " bold " ) , bg ="#90ee90" , fg ="white",command=self.updatedata)
+        update_btn=Button(btn_frame,text="Update",width=10,font =( " Cambria " , 13 , " bold " ) , bg ="#90ee90" , fg ="white",command=self.update_data)
         update_btn.grid(row=0,column=1,padx=4,pady=3)
 
         delete_btn=Button(btn_frame,text="Delete",width=10,font =( " cambria" , 13 , " bold " ) , bg ="#DC143C" , fg ="white",command=self.deletedata)
@@ -196,22 +196,23 @@ class Student:
         search_frame=LabelFrame(right_frame,bd=2,relief=RIDGE,text="Search System",font=("cambria",12,"bold"),bg="white")
         search_frame.place(x=10,y=00,width=628,height=70)
 
-        search_label = Label(search_frame, text="Search By:",font=("cambria",12,"bold"),bg="red",fg="white")
+        search_label = Label(search_frame, text="Enter The Student Id :",font=("cambria",12,"bold"),bg="red",fg="white")
         search_label.grid(row=0,column=0,padx=3,pady=3,sticky=W)
 
-    
-        search_combo=ttk.Combobox(search_frame,font=("cambria",12,"bold"),width=15,state="read only")
-        search_combo["values"]=("Select ","Roll No","Phone No")
-        search_combo.current(0)
-        search_combo.grid(row=0,column=1,padx=2,pady=2,sticky=W)
+        # self.var_com_search=StringVar()
+        # search_combo=ttk.Combobox(search_frame,font=("cambria",12,"bold"),width=15,state="read only",textvariable=self.var_com_search)
+        # search_combo["values"]=("Select ","Student id","Roll No")
+        # search_combo.current(0)
+        # search_combo.grid(row=0,column=1,padx=2,pady=2,sticky=W)
         
-        search_entry=ttk.Entry(search_frame,width=15,font=("cambria",12,"bold"),)
+        self.var_search=StringVar()
+        search_entry=ttk.Entry(search_frame,width=15,textvariable=self.var_search,font=("cambria",12,"bold"),)
         search_entry.grid(row=0,column=2,padx=3,pady=3,sticky=W) 
 
-        search_btn=Button(search_frame,text="Search",width=8,font =( " Cambria " , 13 , " bold " ) , bg ="crimson" , fg ="white")
+        search_btn=Button(search_frame,text="Search",width=8,font =( " Cambria " , 13 , " bold " ) , bg ="crimson" , fg ="white"  ,command=self.searchdata)
         search_btn.grid(row=0,column=3,padx=4,pady=3)
 
-        Showall_btn=Button(search_frame,text="Show All",width=8,font =( " Cambria " , 13 , " bold " ) , bg ="crimson" , fg ="white")
+        Showall_btn=Button(search_frame,text="Show All",width=8,font =( " Cambria " , 13 , " bold " ) , bg ="crimson" , fg ="white", command=self.fetchdata)
         Showall_btn.grid(row=0,column=4,padx=4,pady=3)
 
         #=================== table frame=================
@@ -221,7 +222,7 @@ class Student:
         scroll_x=ttk.Scrollbar(table_frame,orient=HORIZONTAL)
         scroll_y=ttk.Scrollbar(table_frame,orient=VERTICAL)
 
-        self.student_table=ttk.Treeview(table_frame,column=('course','year','sem','id','name','div','rollno','gender','email','address','phone','dob','Mentor','photo'),xscrollcommand=scroll_x.set,yscrollcommand=scroll_y.set)
+        self.student_table=ttk.Treeview(table_frame,column=("course","year","sem",'id','name','rollno','gender','email','address','phone','dob','mentor','photo'),xscrollcommand=scroll_x.set,yscrollcommand=scroll_y.set)
         scroll_x.pack(side=BOTTOM,fill=X)
         scroll_y.pack(side=RIGHT,fill=Y)
         scroll_x.config(command=self.student_table.xview)
@@ -230,16 +231,16 @@ class Student:
         self.student_table.heading("course",text="Course")
         self.student_table.heading("year",text="Year")
         self.student_table.heading("sem",text="Semester")
-        self.student_table.heading("id",text="Sudent ID")
+        self.student_table.heading("id",text="University Id")
         self.student_table.heading("name",text="Name")
-        self.student_table.heading("div",text="Division")   
+        # self.student_table.heading("div",text="Division")   
         self.student_table.heading("rollno",text="Roll No")
         self.student_table.heading("gender",text="Gender")
         self.student_table.heading("email",text="Email")
         self.student_table.heading("address",text="Address")
-        self.student_table.heading("phone",text="Phone Number")
+        self.student_table.heading("phone",text="Phone")
         self.student_table.heading("dob",text="Dob")
-        self.student_table.heading("Mentor",text="Mentor Of Class")
+        self.student_table.heading("mentor",text="Mentor")
         self.student_table.heading("photo",text="Photo")
 
         self.student_table["show"]="headings"
@@ -249,14 +250,14 @@ class Student:
         self.student_table.column("sem",width=100)
         self.student_table.column("id",width=100)
         self.student_table.column("name",width=100)
-        self.student_table.column("div",width=100)
+        # self.student_table.column("div",width=100)
         self.student_table.column("rollno",width=100)
         self.student_table.column("gender",width=100)
         self.student_table.column("email",width=100)
         self.student_table.column("dob",width=100)
         self.student_table.column("phone",width=100)
         self.student_table.column("address",width=100)
-        self.student_table.column("Mentor",width=100)
+        self.student_table.column("mentor",width=100)
         self.student_table.column("photo",width=100)
         
         self.student_table.pack(fill=BOTH,expand=1)
@@ -271,13 +272,12 @@ class Student:
             try:
                 conn= mysql.connector.connect(host="localhost",username="root",password="root",database="facerecogniser")
                 my_cusrsor=conn.cursor()
-                my_cusrsor.execute("insert into student values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(
+                my_cusrsor.execute("insert into student values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(
                     self.var_course.get(),
                     self.var_year.get(),
                     self.var_sem.get(),
                     self.var_id.get(),
                     self.var_name.get(),
-                    self.var_div.get(),
                     self.var_rollno.get(),
                     self.var_gender.get(),
                     self.var_email.get(),
@@ -285,9 +285,7 @@ class Student:
                     self.var_phone.get(),
                     self.var_dob.get(),
                     self.var_Mentor.get(),
-                    self.var_radio1.get()
-
-                                                                                                                            
+                    self.var_radio1.get()                                                                                                       
             ))
                 conn.commit()
                 self.fetchdata()
@@ -321,47 +319,56 @@ class Student:
         self.var_sem.set(row[2])
         self.var_id.set(row[3])
         self.var_name.set(row[4])
-        self.var_div.set(row[5])
-        self.var_rollno.set(row[6])
-        self.var_gender.set(row[7])
-        self.var_email.set(row[8])
-        self.var_address.set(row[9])
-        self.var_phone.set(row[10])
-        self.var_dob.set(row[11])
-        self.var_Mentor.set(row[12])
-        self.var_radio1.set(row[13])
-                
+        # self.var_div.set(row[5])
+        self.var_rollno.set(row[5])
+        self.var_gender.set(row[6])
+        self.var_email.set(row[7])
+        self.var_address.set(row[8])
+        self.var_phone.set(row[9])
+        self.var_dob.set(row[10])
+        self.var_Mentor.set(row[11])
+        self.var_radio1.set(row[12])
+
+
+
 #=============================update data=============================
-    def updatedata(self):
-        if self.var_course.get()=="Select course" or self.var_name.get()==""or self.var_id=="":
+    def update_data(self):
+        if self.var_course.get()=="Select Course" or self.var_name.get()==""or self.var_id=="":
             messagebox.showerror("Error","Enter the all the Fields",parent=self.root)
         else:
             try:
-                conn= mysql.connector.connect(host="localhost",username="root",password="root",database="facerecogniser")
-                my_cusrsor=conn.cursor()
-                my_cusrsor.execute("update student set Course=%s,Year=%s,Sem=%s,Name=%s,Div=%s,Rollno=%s,Gender%s,Email=%s,Address=%s,Phone=%s,Dob=%s,Mentor=%s where Sid=%s",
-                (
-                self.var_course.get(),
-                self.var_year.get(),
-                self.var_sem.get(),
-                self.var_name.get(),
-                self.var_div.get(),
-                self.var_rollno.get(),
-                self.var_gender.get(),
-                self.var_email.get(),
-                self.var_address.get(),
-                self.var_phone.get(),
-                self.var_dob.get(),
-                self.var_Mentor.get(),
-                self.var_id.get()
+                Update=messagebox.askyesno("Update","Do you want to Update the Data",parent=self.root)
+                if Update>0:
+                    conn= mysql.connector.connect(host="localhost",username="root",password="root",database="facerecogniser")
+                    my_cusrsor=conn.cursor()
+                    my_cusrsor.execute("Update student set Course=%s,Year=%s,Sem=%s,Name=%s,Rollno=%s,Gender=%s,Email=%s,Address=%s,phone=%s,Dob=%s,Mentor=%s,radio=%s where Sid=%s",(                                                                                                                                                           
+                    self.var_course.get(),
+                    self.var_year.get(),
+                    self.var_sem.get(),
+                    self.var_name.get(),
+                    # self.var_div.get(),
+                    self.var_rollno.get(),
+                    self.var_gender.get(),
+                    self.var_email.get(),
+                    self.var_address.get(), 
+                    self.var_phone.get(),
+                    self.var_dob.get(),
+                    self.var_Mentor.get(),
+                    self.var_radio1.get(),
+                    self.var_id.get()
 
-                ))
+                    ))       
+                
+                   
+                else:
+                    if not Update:
+                        return 
                 conn.commit()
                 self.fetchdata()
-                conn.close()
-                messagebox.showinfo("Success","Data Updated Successfully",parent=self.root)
+                conn.close() 
+                messagebox.showinfo("Success","Data Updated Successfully",parent=self.root)         
             except Exception as e:
-                messagebox.showerror("Error",f'Error: {e}',parent=self.root)             
+                messagebox.showerror("Error",f'Error: {str(e)}',parent=self.root)             
 
     #=============================delete data=============================
     def deletedata(self):
@@ -374,13 +381,13 @@ class Student:
                     conn= mysql.connector.connect(host="localhost",username="root",password="root",database="facerecogniser")
                     my_cusrsor=conn.cursor()
                     my_cusrsor.execute("delete from student where Sid=%s",(self.var_id.get(),))
-                    messagebox.showinfo("Success","Data Deleted Successfully",parent=self.root)
-                    conn.commit()
-                    self.fetchdata()
-                    conn.close()
+
                 else:
                     if not delete:
                         return
+                conn.commit()
+                self.fetchdata()
+                conn.close()        
             except Exception as es:
                 messagebox.showerror("Error",f'{es}',parent=self.root)
     #=============================clear data=============================
@@ -390,7 +397,7 @@ class Student:
         self.var_sem.set("Select semester")
         self.var_id.set("")
         self.var_name.set("")
-        self.var_div.set("Select division")
+        # self.var_div.set("Select division")
         self.var_rollno.set("")
         self.var_gender.set("")
         self.var_email.set("")
@@ -400,7 +407,28 @@ class Student:
         self.var_Mentor.set("")
         self.var_radio1.set("")
 #=============================search data=============================
-            
+    def searchdata(self):
+            try:
+                conn= mysql.connector.connect(host="localhost",username="root",password="root",database="facerecogniser")
+                my_cusrsor=conn.cursor()
+                my_cusrsor.execute("select * from student where student.Sid=%s",(self.var_search.get(),))
+                data=my_cusrsor.fetchall()
+                if len(data)!=0:
+                    self.student_table.delete(*self.student_table.get_children())
+                    for i in data:
+                        self.student_table.insert("",END,values=i)
+                    conn.commit()
+                    conn.close()
+                else:
+                    messagebox.showerror("Error","Data Not Found",parent=self.root)    
+            except Exception as e:
+                messagebox.showerror("Error",f'Error: {str(e)}',parent=self.root)
+
+
+
+
+
+                            
 
 
 
