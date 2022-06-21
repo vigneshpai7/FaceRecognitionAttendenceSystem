@@ -9,7 +9,7 @@ from PIL import Image,ImageTk
 from numpy import column_stack
 from tkinter import messagebox
 import mysql.connector
-
+import cv2
 
 class Student:
     def __init__(self,root):
@@ -182,7 +182,7 @@ class Student:
         btn_frame1=Frame(class_student_frame,bd=2,relief=FLAT,bg="white")
         btn_frame1.place(x=1,y=235,width=549,height=40)
         #taking
-        takepic_btn=Button(btn_frame1,text="Take Pic",width=25,font =( " cambria " , 13 , " bold " ) , bg ="#2E8BC0" , fg ="white")
+        takepic_btn=Button(btn_frame1,command=self.generate_data_set,text="Take Pic",width=25,font =( " cambria " , 13 , " bold " ) , bg ="#2E8BC0" , fg ="white")
         takepic_btn.grid(row=1,column=0,padx=4,pady=3)
         #uploading the pic
         upload_btn=Button(btn_frame1,text="Upload Pic",width=25,font =( " cambria " , 13 , " bold " ) , bg ="#2E8BC0" , fg ="white")
@@ -424,6 +424,74 @@ class Student:
             except Exception as e:
                 messagebox.showerror("Error",f'Error: {str(e)}',parent=self.root)
 
+#=============================generate data set or take photo sample=============================
+    def generate_data_set(self):
+        if self.var_course.get()=="Select Course" or self.var_name.get()==""or self.var_id=="":
+            messagebox.showerror("Error","Enter the all the Fields",parent=self.root)
+        else:
+            # try:
+                conn= mysql.connector.connect(host="localhost",username="root",password="root",database="facerecogniser")
+                my_cusrsor=conn.cursor()
+                my_cusrsor.execute("select * from student")
+                myresult=my_cusrsor.fetchall()
+                id=0
+                for i in myresult:
+                    id+=1
+                my_cusrsor.execute("Update student set Course=%s,Year=%s,Sem=%s,Name=%s,Rollno=%s,Gender=%s,Email=%s,Address=%s,phone=%s,Dob=%s,Mentor=%s,radio=%s where Sid=%s",(                                                                                                                                                           
+                    self.var_course.get(),
+                    self.var_year.get(),
+                    self.var_sem.get(),
+                    self.var_name.get(),
+                    self.var_rollno.get(),
+                    self.var_gender.get(),
+                    self.var_email.get(),
+                    self.var_address.get(), 
+                    self.var_phone.get(),
+                    self.var_dob.get(),
+                    self.var_Mentor.get(),
+                    self.var_radio1.get(),
+                    self.var_id.get()
+
+                    ))
+                conn.commit()
+                self.fetchdata()
+                self.cleardata()
+                conn.close()
+                #========== Load predefined data set from open cv ==========
+                face_classifier=cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+                def face_crop(img):
+                    gray=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+                    faces=face_classifier.detectMultiScale(gray,1.3,5)#1.3 is the scaling factor and 5 is the number of min neighbours
+                    #generating the rectangle for the face
+                    for (x,y,w,h) in faces:
+                        face_cropped=img[y:y+h,x:x+w]
+                        return face_cropped
+                cap=cv2.VideoCapture(1) # captuing the camera
+                image_id=0
+                while True:
+                    ret,my_frame=cap.read()
+                    if face_crop(my_frame) is not None:
+                        image_id+=1
+                        face=cv2.resize(face_crop(my_frame),(450,450)) 
+                        face = cv2.cvtColor(face, cv2.COLOR_BGR2GRAY)
+                        file_path="data/user."+ str(id)+"."+str(image_id)+".jpg" # taking image from the web cam and saving it in the data folder  wit adding id to id that is image id         
+                        cv2.imwrite(file_path,face)
+                        cv2.putText(face,str(image_id),(50,50),cv2.FONT_HERSHEY_COMPLEX,1,(0,255,0),2)
+                        cv2.imshow("Face Cropper",face)
+
+                    if cv2.waitKey(1)==13 or int(image_id)==100:
+                        break
+                cap.release()
+                cv2.destroyAllWindows()
+                messagebox.showinfo("Success","Data Set Generated Successfully",parent=self.root)
+            # except Exception as e:
+                # messagebox.showerror("Error",f'Error: {str(e)}',parent=self.root)
+
+#generate data set  function do  first condition all feild s are required and establish the connnection to data base  now we fetch all the data and  we stored in my res
+# afte we creade the count of the data set we will insert the data set in the data base and used the for for id increment we took the path from th epackage and loded in program and added  file path harrcascade algorith fro rface recogmition and we  converted into greay scale of face and and we create dthe loop for the rectangle and  and return thewe took the image from the with th help of the image loop 
+#
+
+        
 
 
 

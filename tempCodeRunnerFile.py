@@ -1,5 +1,0 @@
- # self.var_com_search=StringVar()
-        # search_combo=ttk.Combobox(search_frame,font=("cambria",12,"bold"),width=15,state="read only",textvariable=self.var_com_search)
-        # search_combo["values"]=("Select ","Student id","Roll No")
-        # search_combo.current(0)
-        # search_combo.grid(row=0,column=1,padx=2,pady=2,sticky=W)
