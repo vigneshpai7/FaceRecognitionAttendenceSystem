@@ -33,7 +33,7 @@ class Student:
         
 
 
-        img=Image.open(r"C:\Users\paivi\Desktop\Face_Attendence_system\Images\student.png")
+        img=Image.open(r"Images\student.png")
         img=img.resize((1350,750),Image.LANCZOS)  #LANCZOS is used for conversion of high level image to low level image
         self.photoimg=ImageTk.PhotoImage(img)
 
@@ -485,7 +485,7 @@ class Student:
                 cv2.destroyAllWindows()
                 messagebox.showinfo("Success","Data Set Generated Successfully",parent=self.root)
             # except Exception as e:
-                # messagebox.showerror("Error",f'Error: {str(e)}',parent=self.root)
+            #     messagebox.showerror("Error",f'Error: {str(e)}',parent=self.root)
 
 #generate data set  function do  first condition all feild s are required and establish the connnection to data base  now we fetch all the data and  we stored in my res
 # afte we creade the count of the data set we will insert the data set in the data base and used the for for id increment we took the path from th epackage and loded in program and added  file path harrcascade algorith fro rface recogmition and we  converted into greay scale of face and and we create dthe loop for the rectangle and  and return thewe took the image from the with th help of the image loop 
