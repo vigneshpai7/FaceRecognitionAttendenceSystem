@@ -473,7 +473,7 @@ class Student:
                     if face_crop(my_frame) is not None:
                         image_id+=1
                         face=cv2.resize(face_crop(my_frame),(450,450)) 
-                        face = cv2.cvtColor(face, cv2.COLOR_BGR2GRAY)
+                        face=cv2.cvtColor(face,cv2.COLOR_BGR2GRAY)
                         file_path="data/user."+ str(id)+"."+str(image_id)+".jpg" # taking image from the web cam and saving it in the data folder  wit adding id to id that is image id         
                         cv2.imwrite(file_path,face)
                         cv2.putText(face,str(image_id),(50,50),cv2.FONT_HERSHEY_COMPLEX,1,(0,255,0),2)
