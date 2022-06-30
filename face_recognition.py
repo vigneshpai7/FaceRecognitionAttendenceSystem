@@ -47,18 +47,19 @@ class FaceRecognition:
                 c=my_cusrsor.fetchone()
                 c="+".join(c)
 
-                my_cusrsor.execute("select Rollno from student where Sid="+str(id))
+                my_cusrsor.execute("select Sid from student where Sid="+str(id))
                 r=my_cusrsor.fetchone()
-                r="+".join(r)
+                b=str(r)
+                b=" ".join(b)
 
                 # my_cusrsor.execute("select Sem from student where Sid="+str(id))
                 # s=my_cusrsor.fetchone()
                 # s="+".join(s)
                 
                 if confidence>80:
-                    cv2.putText(img,f"Roll:{r}",(x,y-55),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),3)
-                    cv2.putText(img,f"Name:{i}",(x,y-38),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),3)
-                    cv2.putText(img,f"Course:{c}",(x,y-20),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),3)
+                    cv2.putText(img,f"Student ID :{b}",(x,y-55),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),2)
+                    cv2.putText(img,f"Name:{i}",(x,y-38),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),2)
+                    cv2.putText(img,f"Course:{c}",(x,y-5),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),2)
                     # cv2.putText(img,f"Semester:{s}",(x,y-5),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),4)
                 else:
                     cv2.rectangle(img,(x,y),(x+w,y+h),(0,0,255),3)

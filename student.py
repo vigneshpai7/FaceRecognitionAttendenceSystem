@@ -287,10 +287,14 @@ class Student:
                     self.var_Mentor.get(),
                     self.var_radio1.get()                                                                                                       
             ))
-                conn.commit()
-                self.fetchdata()
-                conn.close()
-                messagebox.showinfo("Success","Data Inserted Successfully",parent=self.root)    
+                if self.var_id.get()!=self.var_rollno.get():
+                    messagebox.showerror("Error","Roll No and Student Id Should be same",parent=self.root)
+                
+                else:
+                    conn.commit()
+                    self.fetchdata()
+                    conn.close()
+                    messagebox.showinfo("Success","Data Inserted Successfully",parent=self.root)    
             except Exception as e:
                 messagebox.showerror("Error","Data Not Inserted",parent=self.root)      
 #=============================fetch data to tabel+=============================
