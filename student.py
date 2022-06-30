@@ -466,7 +466,7 @@ class Student:
                     for (x,y,w,h) in faces:
                         face_cropped=img[y:y+h,x:x+w]
                         return face_cropped
-                cap=cv2.VideoCapture(1) # captuing the camera
+                cap=cv2.VideoCapture(0) # captuing the camera
                 image_id=0
                 while True:
                     ret,my_frame=cap.read()

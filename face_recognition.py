@@ -55,20 +55,20 @@ class FaceRecognition:
                 # s=my_cusrsor.fetchone()
                 # s="+".join(s)
                 
-                if confidence>77:
+                if confidence>80:
                     cv2.putText(img,f"Roll:{r}",(x,y-55),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),3)
                     cv2.putText(img,f"Name:{i}",(x,y-38),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),3)
-                    cv2.putText(img,f"Course:{c}",(x,y-5),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),3)
+                    cv2.putText(img,f"Course:{c}",(x,y-20),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),3)
                     # cv2.putText(img,f"Semester:{s}",(x,y-5),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),4)
                 else:
-                    cv2.rectangle(img,(x,y),(x+w+y+h),(0,0,255),3)
-                    cv2.putText(img,"Unknown face",(x,y-55),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),3)
+                    cv2.rectangle(img,(x,y),(x+w,y+h),(0,0,255),3)
+                    cv2.putText(img,"Unknown face",(x,y-5),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),3)
 
                 coord=[x,y,w,y]
             return coord
 
         def recognize(img,clf,faceCascade):
-            coord=draw_boundary(img,faceCascade,1.1,10,(255,25,255),"Face",clf)
+            coord=draw_boundary(img,faceCascade,1.1,20,(255,25,255),"Face",clf)
             return img
         faceCascade=cv2.CascadeClassifier("haarcascade_frontalface_default.xml")    
         clf=cv2.face.LBPHFaceRecognizer_create()
