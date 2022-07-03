@@ -28,7 +28,7 @@ class FaceRecognition:
 
     #=========mark_attendence======
     def attend(self,i,r,n):
-        with open("attendence.csv","r+",newline="\n") as f:
+        with open("attendence.csv","r+",newline="") as f:
             mydatalist=f.readlines()
             name_list=[]
             for line in mydatalist:
@@ -38,7 +38,7 @@ class FaceRecognition:
                 now=datetime.now()
                 d1=now.strftime("%d/%m/%Y")
                 dtString=now.strftime("%H:%M:%S")
-                f.writelines(f"\n{i},{r},{n},{d1},{dtString},Present\n")
+                f.writelines(f"{r},{i},{n},{dtString},{d1},Present\n")
 
 
 
