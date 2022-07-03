@@ -8,6 +8,8 @@ import cv2
 import os
 import numpy as np
 import mysql.connector
+from time import strftime
+from datetime import datetime
 class FaceRecognition:
     def __init__(self,root):
         self.root=root
@@ -22,6 +24,26 @@ class FaceRecognition:
         #button
         facerecognition_button=Button(self.root,text="Click Here Recognition",width=10,font =( " Cambria" , 13 , " bold " ) , bg ="green" , fg ="white",command=self.face_recog)
         facerecognition_button.place(x=575,y=325,height=80,width=190)
+
+
+    #=========mark_attendence======
+    def attend(self,i,r,n):
+        with open("attendence.csv","r+",newline="\n") as f:
+            mydatalist=f.readlines()
+            name_list=[]
+            for line in mydatalist:
+                entry=line.split(",")
+                name_list.append(entry[0])
+            if((i not in name_list) and (r not in name_list) and (n not in name_list)):
+                now=datetime.now()
+                d1=now.strftime("%d/%m/%Y")
+                dtString=now.strftime("%H:%M:%S")
+                f.writelines(f"\n{i},{r},{n},{d1},{dtString},Present\n")
+
+
+
+
+    
 
         # face recognition
     def face_recog(self):
@@ -49,18 +71,20 @@ class FaceRecognition:
 
                 my_cusrsor.execute("select Sid from student where Sid="+str(id))
                 r=my_cusrsor.fetchone()
-                b=str(r)
-                b=" ".join(b)
+                r=" ".join(r)
 
                 # my_cusrsor.execute("select Sem from student where Sid="+str(id))
                 # s=my_cusrsor.fetchone()
                 # s="+".join(s)
                 
                 if confidence>80:
-                    cv2.putText(img,f"Student ID :{b}",(x,y-55),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),2)
+                    cv2.putText(img,f"Student ID :{r}",(x,y-55),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),2)
                     cv2.putText(img,f"Name:{i}",(x,y-38),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),2)
                     cv2.putText(img,f"Course:{c}",(x,y-5),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),2)
                     # cv2.putText(img,f"Semester:{s}",(x,y-5),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),4)
+                    self.attend(i,r,c)
+                   
+
                 else:
                     cv2.rectangle(img,(x,y),(x+w,y+h),(0,0,255),3)
                     cv2.putText(img,"Unknown face",(x,y-5),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),3)

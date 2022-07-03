@@ -6,6 +6,7 @@ from PIL import Image,ImageTk
 from face_recognition import FaceRecognition
 from student import Student
 import os
+from a import Attendence
 from train import Train
 from face_recognition import FaceRecognition
 
@@ -53,9 +54,9 @@ class Face_recognition_system:
         img4=img4.resize((180,180),Image.LANCZOS)  
         self.photoimg4=ImageTk.PhotoImage(img4)
 
-        b3 = Button(bgimage,image=self.photoimg4,borderwidth=0,cursor = " hand2 ")
+        b3 = Button(bgimage,image=self.photoimg4,borderwidth=0,cursor = " hand2 ",command=self.Attendence)
         b3.place(x=750,y=180,width=180,height=180)
-        b3_3 =Button( bgimage ,text="Attendence", cursor = " hand2 ",font=("Cambria",15,"bold"),fg="#4d4dff")
+        b3_3 =Button( bgimage ,text="Attendence", cursor = " hand2 ",font=("Cambria",15,"bold"),fg="#4d4dff",command=self.Attendence)
         b3_3.place( x = 750 , y = 350 , width = 180 , height = 40 )
         #Helpdesk Button
         img5=Image.open(r"Images\help.jpg")
@@ -117,7 +118,10 @@ class Face_recognition_system:
         self.app=Train(self.new_window)           
     def faceR(self):
         self.new_window=Toplevel(self.root)
-        self.app=FaceRecognition(self.new_window)               
+        self.app=FaceRecognition(self.new_window)
+    def Attendence(self):
+        self.new_window=Toplevel(self.root)
+        self.app=Attendence(self.new_window)               
 
 if __name__ =="__main__":
         root=Tk()
