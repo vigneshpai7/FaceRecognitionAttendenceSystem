@@ -219,10 +219,10 @@ class Student:
         takepic_btn = Button(btn_frame1, command=self.generate_data_set, text="Take Pic", width=25, font=(
             " cambria ", 13, " bold "), bg="#2E8BC0", fg="white")
         takepic_btn.grid(row=1, column=0, padx=4, pady=3)
-        # uploading the pic
-        upload_btn = Button(btn_frame1, text="Upload Pic", width=25, font=(
-            " cambria ", 13, " bold "), bg="#2E8BC0", fg="white")
-        upload_btn.grid(row=1, column=1, padx=4, pady=3)
+        # # uploading the pic
+        # upload_btn = Button(btn_frame1, text="Upload Pic", width=25, font=(
+        #     " cambria ", 13, " bold "), bg="#2E8BC0", fg="white")
+        # upload_btn.grid(row=1, column=1, padx=4, pady=3)
 
         # right frame
         right_frame = LabelFrame(main_frame, bd=2, relief=RIDGE, text="Student Details", font=(

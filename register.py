@@ -1,9 +1,10 @@
 from tkinter import*
 from tkinter import ttk
 from PIL import Image,ImageTk
+
 from tkinter import messagebox
 import mysql.connector
-
+import os
 class Register:
 	def __init__(self, root):
 		self.root=root
@@ -21,13 +22,13 @@ class Register:
 		self.var_confpass=StringVar()
 
 		#=======Bg Image====
-		self.bg=ImageTk.PhotoImage(file=r"Images\train.png")
+		self.bg=ImageTk.PhotoImage(file=r"Images\Register.png")
 
 		lbl_bg=Label(self.root,image=self.bg)
 		lbl_bg.place(x=0,y=0,relwidth=1,relheight=1) 
 
 		#====left image=====
-		self.bg1=ImageTk.PhotoImage(file=r"Images\train.png")
+		self.bg1=ImageTk.PhotoImage(file=r"Images\registrationface.png")
 
 		left_lbl=Label(self.root,image=self.bg1)
 		left_lbl.place(x=50,y=100,width=470,height=550) 
@@ -42,7 +43,7 @@ class Register:
 		register_lbl.place(x=20,y=20)
 
 		#====Label and Entry====
-
+		
 		#-----row1---
 		fname=Label(frame,text="First Name",font=("times new roman ",15,"bold"),bg="white")
 		fname.place(x=50,y=100)
@@ -105,17 +106,11 @@ class Register:
 		checkbtn.place(x=50,y=380)
 
 		#=============Buttons============
-		img=Image.open(r"Images\train.png")
-		img=img.resize((200,50),Image.ANTIALIAS)
-		self.photoimage=ImageTk.PhotoImage(img)
-		b1=Button(frame,command=self.register_data,image=self.photoimage,borderwidth=0,cursor="hand2")
+		b1=Button(frame,command=self.register_data,text="Register",font=("cambria",15,"bold"),bg="Green",fg="white",borderwidth=0,cursor="hand2")
 		b1.place(x=10,y=420,width=200)
 
 		#Login Button
-		img1=Image.open(r"Images\train.png")
-		img1=img1.resize((200,50),Image.ANTIALIAS)
-		self.photoimage1=ImageTk.PhotoImage(img1)
-		b1=Button(frame,image=self.photoimage1,borderwidth=0,cursor="hand2")
+		b1=Button(frame,borderwidth=0,cursor="hand2",text="Login",font=("cambria",15,"bold"),bg="navyblue",fg="white",command=self.login_window)
 		b1.place(x=330,y=420,width=200)
 
 	
@@ -158,7 +153,10 @@ class Register:
 			conn.commit()
 			conn.close()
 			messagebox.showinfo("Success", "Registered Successfully")	
-
+	# redirecting to login page after clicking log in button
+	def login_window(self):
+		self.root.destroy()
+		os.system("python login.py")
 
 
 

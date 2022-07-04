@@ -150,10 +150,12 @@ class Attendence:
 
     #fetching data
     def fetch_data(self,rows):
+
         self.attendtable.delete(*self.attendtable.get_children())
         for i in rows:
             self.attendtable.insert("",END,values=i)
-
+    
+    
 
     #import csv
     def import_csv(self):
@@ -164,7 +166,8 @@ class Attendence:
             csvread=csv.reader(myfile,delimiter=",")
             for i in csvread:
                 mydata.append(i)
-            self.fetch_data(mydata)				
+            self.fetch_data(mydata)	
+          			
 
 	
 
@@ -179,11 +182,13 @@ class Attendence:
                 exp_write=csv.writer(myfile,delimiter=",")
                 for i in mydata:
                     exp_write.writerow(i)
-
+                #clear the content of attendence.csv file after exporting the data
+                mydata.clear()
+                self.fetch_data(mydata)
                 messagebox.showinfo("Success","Data exported successfully",parent=self.root)
-
         except Exception as e:
             messagebox.showwarning("Error","Data Not Exported",parent=self.root)
+
 
 
     #updating the csvfile data

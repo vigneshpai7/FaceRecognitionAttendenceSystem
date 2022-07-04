@@ -2,6 +2,7 @@ from tkinter import *
 from turtle import bgcolor 
 from PIL import Image,ImageTk
 from cv2 import COLOR_BAYER_BG2GRAY, FONT_HERSHEY_COMPLEX
+from matplotlib import animation
 from numpy import column_stack
 from tkinter import messagebox
 import cv2
@@ -22,8 +23,12 @@ class FaceRecognition:
         frbgimage.place(width=1350,height=750)
 
         #button
-        facerecognition_button=Button(self.root,text="Click Here Recognition",width=10,font =( " Cambria" , 13 , " bold " ) , bg ="green" , fg ="white",command=self.face_recog)
-        facerecognition_button.place(x=575,y=325,height=80,width=190)
+        facerecognition_button=Button(self.root,text="Click Here Mark Attendence",width=10,font =( " Cambria" , 13 , " bold " ) , bg ="green" , fg ="white",command=self.face_recog)
+        facerecognition_button.place(x=575,y=325,height=80,width=290)
+
+        #adding note that click enter to exit
+        note=Label(self.root,text="Click Enter to close the Attendence marking window",font=("cambria",12,"bold"),bg="white",fg="navyblue",bd=2,relief="solid")
+        note.place(x=475,y=410,height=80,width=490)
 
 
     #=========mark_attendence======
