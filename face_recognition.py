@@ -2,7 +2,6 @@ from tkinter import *
 from turtle import bgcolor 
 from PIL import Image,ImageTk
 from cv2 import COLOR_BAYER_BG2GRAY, FONT_HERSHEY_COMPLEX
-from matplotlib import animation
 from numpy import column_stack
 from tkinter import messagebox
 import cv2

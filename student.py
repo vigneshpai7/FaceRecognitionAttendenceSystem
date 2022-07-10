@@ -314,8 +314,7 @@ class Student:
                 "Error", "Enter the all the Fields", parent=self.root)
         else:
             try:
-                conn = mysql.connector.connect(
-                    host="localhost", username="root", password="root", database="facerecogniser")
+                conn = mysql.connector.connect(host="localhost", username="root", password="root", database="facerecogniser")
                 my_cusrsor = conn.cursor()
                 my_cusrsor.execute("insert into student values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (
                     self.var_course.get(),
@@ -370,19 +369,19 @@ class Student:
         cursor_row = self.student_table.focus()
         contents = self.student_table.item(cursor_row)
         row = contents['values']
-        self.var_course.set(row[0])
-        self.var_year.set(row[1])
-        self.var_sem.set(row[2])
-        self.var_id.set(row[3])
-        self.var_name.set(row[4])
-        # self.var_div.set(row[5])
-        self.var_rollno.set(row[5])
-        self.var_gender.set(row[6])
-        self.var_email.set(row[7])
-        self.var_address.set(row[8])
-        self.var_phone.set(row[9])
-        self.var_dob.set(row[10])
-        self.var_Mentor.set(row[11])
+        self.var_course.set(row[0]),
+        self.var_year.set(row[1]),
+        self.var_sem.set(row[2]),
+        self.var_id.set(row[3]),
+        self.var_name.set(row[4]),
+        # self.var_div.set(row[5]),
+        self.var_rollno.set(row[5]),
+        self.var_gender.set(row[6]),
+        self.var_email.set(row[7]),
+        self.var_address.set(row[8]),
+        self.var_phone.set(row[9]),
+        self.var_dob.set(row[10]),
+        self.var_Mentor.set(row[11]),
         self.var_radio1.set(row[12])
 
 

@@ -2,7 +2,6 @@ from tkinter import*
 from tkinter import ttk
 from PIL import Image, ImageTk
 from tkinter import messagebox
-from matplotlib import image
 import mysql.connector
 from student import Student
 import os
@@ -102,7 +101,7 @@ class Login_window(object):
                 "Success", "Welcome to Face Recognition System")
         else:
             conn = mysql.connector.connect(
-                host="localhost", username="root", password="root", database="facerecogniser")
+                host="localhost", username="root", password="root", database="register")
             my_cursor = conn.cursor()
             my_cursor.execute("select * from register where email=%s and pass=%s", (
                 self.txtuser.get(),
@@ -139,7 +138,7 @@ class Login_window(object):
 
         else:
             conn = mysql.connector.connect(
-                host="localhost", username="root", password="root", database="facerecogniser")
+                host="localhost", username="root", password="root", database="register")
             my_cursor = conn.cursor()
             query = (
                 "select * from register where email=%s and securityQ=%s and securityA=%s")
@@ -171,7 +170,7 @@ class Login_window(object):
                 "Error", "Please enter the Email address to reset password")
         else:
             conn = mysql.connector.connect(
-                host="localhost", username="root", password="root", database="facerecogniser")
+                host="localhost", username="root", password="root", database="register")
             my_cursor = conn.cursor()
             query = ("select * from register where email=%s")
             value = (self.txtuser.get(),)

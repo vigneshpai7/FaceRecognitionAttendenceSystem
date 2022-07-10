@@ -2,7 +2,6 @@ from tkinter import *
 from turtle import bgcolor, width 
 from PIL import Image,ImageTk
 from cv2 import COLOR_BAYER_BG2GRAY, FONT_HERSHEY_COMPLEX
-from mysqlx import Row
 from numpy import column_stack
 from tkinter import messagebox
 from tkinter import ttk

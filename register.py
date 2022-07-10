@@ -1,7 +1,6 @@
 from tkinter import*
 from tkinter import ttk
 from PIL import Image,ImageTk
-
 from tkinter import messagebox
 import mysql.connector
 import os
@@ -127,7 +126,7 @@ class Register:
 
 		else:
 			#Connecting with database
-			conn=mysql.connector.connect(host="localhost",username="root",password="root",database="facerecogniser")			
+			conn=mysql.connector.connect(host="localhost",username="root",password="root",database="register")			
 			my_cursor=conn.cursor()
 
 			#for the unique email (1 email 1 user(not duplicate user with same mail))
