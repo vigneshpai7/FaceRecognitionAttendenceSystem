@@ -11,6 +11,7 @@ from train import Train
 from face_recognition import FaceRecognition
 import tkinter
 from time import strftime
+from helpdesk import Help
 
 
 class Face_recognition_system:
@@ -104,10 +105,10 @@ class Face_recognition_system:
         self.photoimg5 = ImageTk.PhotoImage(img5)
 
         b4 = Button(bgimage, image=self.photoimg5,
-                    borderwidth=0, cursor=" hand2 ")
+                    borderwidth=0, cursor=" hand2 ", command=self.help_desk)
         b4.place(x=750, y=400, width=180, height=180)
         b4_4 = Button(bgimage, text="Helpdesk", cursor=" hand2 ",
-                      font=("Cambria", 15, "bold"), fg="#4d4dff")
+                      font=("Cambria", 15, "bold"), fg="#4d4dff", command=self.help_desk)
         b4_4.place(x=750, y=550, width=180, height=40)
 
 
@@ -153,6 +154,9 @@ class Face_recognition_system:
     def time_func(self):
         self.time_label.config(text=strftime("%H:%M:%S"))
         self.time_label.after(1000, self.time_func)
+    def help_desk(self):
+        self.helpwindow = Toplevel(self.root)
+        self.app = Help(self.helpwindow)        
 
 
 if __name__ == "__main__":

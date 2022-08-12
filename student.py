@@ -118,25 +118,25 @@ class Student:
         # div_entry.grid(row=1,column=1,padx=3,pady=3,sticky=W)
 
         # Roll Number
-        rollno_label = Label(class_student_frame, text="Roll No:", font=(
-            "cambria", 12, "bold"), bg="white")
-        rollno_label.grid(row=1, column=0, padx=3, pady=3, sticky=W)
+        # rollno_label = Label(class_student_frame, text="Roll No:", font=(
+        #     "cambria", 12, "bold"), bg="white")
+        # rollno_label.grid(row=1, column=0, padx=3, pady=3, sticky=W)
 
-        rollno_entry = ttk.Entry(class_student_frame, width=15, font=(
-            "cambria", 12, "bold"), textvariable=self.var_rollno)
-        rollno_entry.grid(row=1, column=1, padx=3, pady=3, sticky=W)
+        # rollno_entry = ttk.Entry(class_student_frame, width=15, font=(
+        #     "cambria", 12, "bold"), textvariable=self.var_rollno)
+        # rollno_entry.grid(row=1, column=1, padx=3, pady=3, sticky=W)
 
         # gender
         gender_label = Label(class_student_frame, text="Gender:", font=(
             "cambria", 12, "bold"), bg="white")
-        gender_label.grid(row=2, column=0, padx=3, pady=3, sticky=W)
+        gender_label.grid(row=1, column=0, padx=3, pady=3, sticky=W)
 
         gender_combo = ttk.Combobox(class_student_frame, font=(
             "cambria", 12, "bold"), width=13, state="read only", textvariable=self.var_gender)
         gender_combo["values"] = (
             "Select Gender", "Male", "Female", "Not prefer to say")
         gender_combo.current(0)
-        gender_combo.grid(row=2, column=1, padx=2, pady=2, sticky=W)
+        gender_combo.grid(row=1, column=1, padx=2, pady=2, sticky=W)
 
         # email
         email_label = Label(class_student_frame, text="Email:",
@@ -147,14 +147,14 @@ class Student:
             "cambria", 12, "bold"), textvariable=self.var_email)
         email_entry.grid(row=1, column=3, padx=3, pady=3, sticky=W)
 
-        # Dob
+        # Address
         address_label = Label(class_student_frame, text="Address:", font=(
             "cambria", 12, "bold"), bg="white")
-        address_label.grid(row=3, column=0, padx=3, pady=3, sticky=W)
+        address_label.grid(row=2, column=0, padx=3, pady=3, sticky=W)
 
         address_entry = ttk.Entry(class_student_frame, width=15, font=(
             "cambria", 12, "bold"), textvariable=self.var_address)
-        address_entry.grid(row=3, column=1, padx=3, pady=3, sticky=W)
+        address_entry.grid(row=2, column=1, padx=3, pady=3, sticky=W)
 
         # phone number
         phone_label = Label(class_student_frame, text="Phone No:", font=(
@@ -168,11 +168,11 @@ class Student:
         # dob
         dob_label = Label(class_student_frame, text="Date OF Birth:", font=(
             "cambria", 12, "bold"), bg="white")
-        dob_label.grid(row=4, column=0, padx=3, pady=3, sticky=W)
+        dob_label.grid(row=3, column=0, padx=3, pady=3, sticky=W)
 
         dob_entry = ttk.Entry(class_student_frame, width=15, font=(
             "cambria", 12, "bold"), textvariable=self.var_dob)
-        dob_entry.grid(row=4, column=1, padx=3, pady=3, sticky=W)
+        dob_entry.grid(row=3, column=1, padx=3, pady=3, sticky=W)
 
         # mentor
         Mentor_label = Label(class_student_frame, text="Mentor of Class:", font=(
@@ -264,7 +264,7 @@ class Student:
         scroll_x = ttk.Scrollbar(table_frame, orient=HORIZONTAL)
         scroll_y = ttk.Scrollbar(table_frame, orient=VERTICAL)
 
-        self.student_table = ttk.Treeview(table_frame, column=("course", "year", "sem", 'id', 'name', 'rollno', 'gender',
+        self.student_table = ttk.Treeview(table_frame, column=("course", "year", "sem", 'id', 'name', 'gender',
                                           'email', 'address', 'phone', 'dob', 'mentor', 'photo'), xscrollcommand=scroll_x.set, yscrollcommand=scroll_y.set)
         scroll_x.pack(side=BOTTOM, fill=X)
         scroll_y.pack(side=RIGHT, fill=Y)
@@ -277,7 +277,7 @@ class Student:
         self.student_table.heading("id", text="University Id")
         self.student_table.heading("name", text="Name")
         # self.student_table.heading("div",text="Division")
-        self.student_table.heading("rollno", text="Roll No")
+        # self.student_table.heading("rollno", text="Roll No")
         self.student_table.heading("gender", text="Gender")
         self.student_table.heading("email", text="Email")
         self.student_table.heading("address", text="Address")
@@ -294,7 +294,7 @@ class Student:
         self.student_table.column("id", width=100)
         self.student_table.column("name", width=100)
         # self.student_table.column("div",width=100)
-        self.student_table.column("rollno", width=100)
+        # self.student_table.column("rollno", width=100)
         self.student_table.column("gender", width=100)
         self.student_table.column("email", width=100)
         self.student_table.column("dob", width=100)
@@ -316,13 +316,13 @@ class Student:
             try:
                 conn = mysql.connector.connect(host="localhost", username="root", password="root", database="facerecogniser")
                 my_cusrsor = conn.cursor()
-                my_cusrsor.execute("insert into student values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (
+                my_cusrsor.execute("insert into student values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (
                     self.var_course.get(),
                     self.var_year.get(),
                     self.var_sem.get(),
                     self.var_id.get(),
                     self.var_name.get(),
-                    self.var_rollno.get(),
+                    # self.var_rollno.get(),
                     self.var_gender.get(),
                     self.var_email.get(),
                     self.var_address.get(),
@@ -331,15 +331,10 @@ class Student:
                     self.var_Mentor.get(),
                     self.var_radio1.get()
                 ))
-                if self.var_id.get() != self.var_rollno.get():
-                    messagebox.showerror(
-                        "Error", "Roll No and Student Id Should be same", parent=self.root)
-
-                else:
-                    conn.commit()
-                    self.fetchdata()
-                    conn.close()
-                    messagebox.showinfo(
+                conn.commit()
+                self.fetchdata()
+                conn.close()
+                messagebox.showinfo(
                         "Success", "Data Inserted Successfully", parent=self.root)
             except Exception as e:
                 messagebox.showerror(
@@ -375,14 +370,14 @@ class Student:
         self.var_id.set(row[3]),
         self.var_name.set(row[4]),
         # self.var_div.set(row[5]),
-        self.var_rollno.set(row[5]),
-        self.var_gender.set(row[6]),
-        self.var_email.set(row[7]),
-        self.var_address.set(row[8]),
-        self.var_phone.set(row[9]),
-        self.var_dob.set(row[10]),
-        self.var_Mentor.set(row[11]),
-        self.var_radio1.set(row[12])
+        # self.var_rollno.set(row[5]),
+        self.var_gender.set(row[5]),
+        self.var_email.set(row[6]),
+        self.var_address.set(row[7]),
+        self.var_phone.set(row[8]),
+        self.var_dob.set(row[9]),
+        self.var_Mentor.set(row[10]),
+        self.var_radio1.set(row[11])
 
 
 # =============================update data=============================
@@ -399,13 +394,13 @@ class Student:
                     conn = mysql.connector.connect(
                         host="localhost", username="root", password="root", database="facerecogniser")
                     my_cusrsor = conn.cursor()
-                    my_cusrsor.execute("Update student set Course=%s,Year=%s,Sem=%s,Name=%s,Rollno=%s,Gender=%s,Email=%s,Address=%s,phone=%s,Dob=%s,Mentor=%s,radio=%s where Sid=%s", (
+                    my_cusrsor.execute("Update student set Course=%s,Year=%s,Sem=%s,Name=%s,Gender=%s,Email=%s,Address=%s,phone=%s,Dob=%s,Mentor=%s,radio=%s where Sid=%s", (
                         self.var_course.get(),
                         self.var_year.get(),
                         self.var_sem.get(),
                         self.var_name.get(),
                         # self.var_div.get(),
-                        self.var_rollno.get(),
+                        # self.var_rollno.get(),
                         self.var_gender.get(),
                         self.var_email.get(),
                         self.var_address.get(),
@@ -462,7 +457,7 @@ class Student:
         self.var_id.set("")
         self.var_name.set("")
         # self.var_div.set("Select division")
-        self.var_rollno.set("")
+        # self.var_rollno.set("")
         self.var_gender.set("")
         self.var_email.set("")
         self.var_address.set("")
@@ -507,12 +502,12 @@ class Student:
             id = 0
             for i in myresult:
                 id += 1
-            my_cusrsor.execute("Update student set Course=%s,Year=%s,Sem=%s,Name=%s,Rollno=%s,Gender=%s,Email=%s,Address=%s,phone=%s,Dob=%s,Mentor=%s,radio=%s where Sid=%s", (
+            my_cusrsor.execute("Update student set Course=%s,Year=%s,Sem=%s,Name=%s,Gender=%s,Email=%s,Address=%s,phone=%s,Dob=%s,Mentor=%s,radio=%s where Sid=%s", (
                 self.var_course.get(),
                 self.var_year.get(),
                 self.var_sem.get(),
                 self.var_name.get(),
-                self.var_rollno.get(),
+                # self.var_rollno.get(),
                 self.var_gender.get(),
                 self.var_email.get(),
                 self.var_address.get(),

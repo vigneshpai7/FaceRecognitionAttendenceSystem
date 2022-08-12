@@ -181,9 +181,6 @@ class Attendence:
                 exp_write=csv.writer(myfile,delimiter=",")
                 for i in mydata:
                     exp_write.writerow(i)
-                #clear the content of attendence.csv file after exporting the data
-                mydata.clear()
-                self.fetch_data(mydata)
                 messagebox.showinfo("Success","Data exported successfully",parent=self.root)
         except Exception as e:
             messagebox.showwarning("Error","Data Not Exported",parent=self.root)
