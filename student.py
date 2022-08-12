@@ -23,7 +23,6 @@ class Student:
         self.var_sem = StringVar()
         self.var_id = StringVar()
         self.var_name = StringVar()
-        # self.var_div=StringVar()
         self.var_rollno = StringVar()
         self.var_dob = StringVar()
         self.var_email = StringVar()
@@ -108,23 +107,7 @@ class Student:
             "cambria", 12, "bold"), textvariable=self.var_name)
         student_name_entry.grid(row=0, column=3, padx=3, pady=3, sticky=W)
 
-        # #class division
-        # div_label = Label(class_student_frame, text="Division:",font=("cambria",12,"bold"),bg="white")
-        # div_label.grid(row=1,column=0,padx=3,pady=3,sticky=W)
-
-        # div_entry=ttk.Combobox(class_student_frame,font=("cambria",12,"bold"),width=13,state="read only",textvariable=self.var_div)
-        # div_entry["values"]=("A","B","C")
-        # div_entry.current(0)
-        # div_entry.grid(row=1,column=1,padx=3,pady=3,sticky=W)
-
-        # Roll Number
-        # rollno_label = Label(class_student_frame, text="Roll No:", font=(
-        #     "cambria", 12, "bold"), bg="white")
-        # rollno_label.grid(row=1, column=0, padx=3, pady=3, sticky=W)
-
-        # rollno_entry = ttk.Entry(class_student_frame, width=15, font=(
-        #     "cambria", 12, "bold"), textvariable=self.var_rollno)
-        # rollno_entry.grid(row=1, column=1, padx=3, pady=3, sticky=W)
+     
 
         # gender
         gender_label = Label(class_student_frame, text="Gender:", font=(
@@ -219,10 +202,7 @@ class Student:
         takepic_btn = Button(btn_frame1, command=self.generate_data_set, text="Take Pic", width=25, font=(
             " cambria ", 13, " bold "), bg="#2E8BC0", fg="white")
         takepic_btn.grid(row=1, column=0, padx=4, pady=3)
-        # # uploading the pic
-        # upload_btn = Button(btn_frame1, text="Upload Pic", width=25, font=(
-        #     " cambria ", 13, " bold "), bg="#2E8BC0", fg="white")
-        # upload_btn.grid(row=1, column=1, padx=4, pady=3)
+
 
         # right frame
         right_frame = LabelFrame(main_frame, bd=2, relief=RIDGE, text="Student Details", font=(
@@ -238,11 +218,6 @@ class Student:
             "cambria", 12, "bold"), bg="red", fg="white")
         search_label.grid(row=0, column=0, padx=3, pady=3, sticky=W)
 
-        # self.var_com_search=StringVar()
-        # search_combo=ttk.Combobox(search_frame,font=("cambria",12,"bold"),width=15,state="read only",textvariable=self.var_com_search)
-        # search_combo["values"]=("Select ","Student id","Roll No")
-        # search_combo.current(0)
-        # search_combo.grid(row=0,column=1,padx=2,pady=2,sticky=W)
 
         self.var_search = StringVar()
         search_entry = ttk.Entry(
@@ -276,8 +251,6 @@ class Student:
         self.student_table.heading("sem", text="Semester")
         self.student_table.heading("id", text="University Id")
         self.student_table.heading("name", text="Name")
-        # self.student_table.heading("div",text="Division")
-        # self.student_table.heading("rollno", text="Roll No")
         self.student_table.heading("gender", text="Gender")
         self.student_table.heading("email", text="Email")
         self.student_table.heading("address", text="Address")
@@ -293,8 +266,6 @@ class Student:
         self.student_table.column("sem", width=100)
         self.student_table.column("id", width=100)
         self.student_table.column("name", width=100)
-        # self.student_table.column("div",width=100)
-        # self.student_table.column("rollno", width=100)
         self.student_table.column("gender", width=100)
         self.student_table.column("email", width=100)
         self.student_table.column("dob", width=100)
@@ -322,7 +293,6 @@ class Student:
                     self.var_sem.get(),
                     self.var_id.get(),
                     self.var_name.get(),
-                    # self.var_rollno.get(),
                     self.var_gender.get(),
                     self.var_email.get(),
                     self.var_address.get(),
@@ -369,8 +339,6 @@ class Student:
         self.var_sem.set(row[2]),
         self.var_id.set(row[3]),
         self.var_name.set(row[4]),
-        # self.var_div.set(row[5]),
-        # self.var_rollno.set(row[5]),
         self.var_gender.set(row[5]),
         self.var_email.set(row[6]),
         self.var_address.set(row[7]),
@@ -399,8 +367,6 @@ class Student:
                         self.var_year.get(),
                         self.var_sem.get(),
                         self.var_name.get(),
-                        # self.var_div.get(),
-                        # self.var_rollno.get(),
                         self.var_gender.get(),
                         self.var_email.get(),
                         self.var_address.get(),
@@ -456,8 +422,6 @@ class Student:
         self.var_sem.set("Select semester")
         self.var_id.set("")
         self.var_name.set("")
-        # self.var_div.set("Select division")
-        # self.var_rollno.set("")
         self.var_gender.set("")
         self.var_email.set("")
         self.var_address.set("")
@@ -507,7 +471,6 @@ class Student:
                 self.var_year.get(),
                 self.var_sem.get(),
                 self.var_name.get(),
-                # self.var_rollno.get(),
                 self.var_gender.get(),
                 self.var_email.get(),
                 self.var_address.get(),
@@ -555,8 +518,7 @@ class Student:
             cv2.destroyAllWindows()
             messagebox.showinfo(
                 "Success", "Data Set Generated Successfully", parent=self.root)
-            # except Exception as e:
-            #     messagebox.showerror("Error",f'Error: {str(e)}',parent=self.root)
+            
 
 # generate data set  function do  first condition all feild s are required and establish the connnection to data base  now we fetch all the data and  we stored in my res
 # afte we creade the count of the data set we will insert the data set in the data base and used the for for id increment we took the path from th epackage and loded in program and added  file path harrcascade algorith fro rface recogmition and we  converted into greay scale of face and and we create dthe loop for the rectangle and  and return thewe took the image from the with th help of the image loop

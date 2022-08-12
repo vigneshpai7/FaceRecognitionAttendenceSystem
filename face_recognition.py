@@ -32,7 +32,7 @@ class FaceRecognition:
 
     #=========mark_attendence======
     def attend(self,i,r,n):
-        with open("attendence.csv","r+",newline="") as f:
+        with open(r'Attendence\attendence.csv',"r+",newline="") as f:
 
             mydatalist=f.readlines()
             name_list=[]
@@ -43,6 +43,8 @@ class FaceRecognition:
                 now=datetime.now()
                 d1=now.strftime("%d/%m/%Y")
                 dtString=now.strftime("%H:%M:%S")
+                #making file empty before writing new data
+                f.seek(0)
                 f.writelines(f"{r},{i},{n},{dtString},{d1},Present\n")
 
 
@@ -79,15 +81,11 @@ class FaceRecognition:
                     r=my_cusrsor.fetchone()
                     r=" ".join(r)
 
-                    # my_cusrsor.execute("select Sem from student where Sid="+str(id))
-                    # s=my_cusrsor.fetchone()
-                    # s="+".join(s)
-                    
-                    if confidence>=88:
+    
+                    if confidence>=89:
                         cv2.putText(img,f"Student ID :{r}",(x,y-55),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),2)
                         cv2.putText(img,f"Name:{i}",(x,y-38),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),2)
                         cv2.putText(img,f"Course:{c}",(x,y-5),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),2)
-                        # cv2.putText(img,f"Semester:{s}",(x,y-5),cv2.FONT_HERSHEY_COMPLEX,0.8,(255,255,255),4)
                         self.attend(i,r,c)
                         print(confidence)
                     
@@ -124,24 +122,6 @@ class FaceRecognition:
             os.system("python facerecognition.py")
             return
             pass    
-
-#last 42:43
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-           
-
 
 
 if __name__ =="__main__":

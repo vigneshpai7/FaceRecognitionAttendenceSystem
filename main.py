@@ -18,7 +18,7 @@ class Face_recognition_system:
     def __init__(self, root):
         self.root = root
         self.root.geometry("1350x750+0+0")
-        self.root.title('Face recognition System')
+        self.root.title('AI Attendence Management System')
         # bgimages
         img = Image.open(r"Images\image1.png")
         # LANCZOS is used for conversion of high level image to low level image
@@ -38,7 +38,7 @@ class Face_recognition_system:
         self.time_label.after(1000, self.time_func)
 
         # adding title project
-        title_label = Label(bgimage, text="FACE RECONITION ATTENDENCE SYSTEM SOFTWARE", font=(
+        title_label = Label(bgimage, text="AI ATTENDENCE  MANAGEMENT SYSTEM SOFTWARE", font=(
             "Comic Sans MS", 25), fg="#4d4dff")
         title_label.place(x=0, y=600, width=1430, height=45)
 

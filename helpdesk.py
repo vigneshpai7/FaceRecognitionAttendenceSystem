@@ -22,7 +22,7 @@ class Help:
 		#Mail label
 		f_lbl=Label(self.root,image=self.photoimg_top)
 		f_lbl.place(x=0,y=0,width=1530,height=720) 
-		dev_label=Label(f_lbl,text="paivignesh17@gmail.com & karanshanbhag@gmail.com",font=("times new roman",24,"bold"),bg="white",fg="navyblue")
+		dev_label=Label(f_lbl,text="Abc@gmail.com",font=("times new roman",24,"bold"),bg="white",fg="navyblue")
 		dev_label.place(x=450,y=220)
 
 
